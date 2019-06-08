@@ -12,7 +12,7 @@
     "serialport": "^7.1.5"
   },
   "scripts": {
-    "start": "sudo NODE_ENV=production pm2 start app.js --name voice_car",
+    "start": "NODE_ENV=production sudo pm2 start app.js --name voice_car",
     "restart": "sudo pm2 delete all && yarn start"
   }
 }
