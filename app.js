@@ -1,6 +1,6 @@
 var express = require('express'),
 		http = require('http'),
-		ws = require('ws'),
+		// ws = require('ws'),
 		serial_port = require('serialport'),
 		body_parser = require('body-parser');
 
