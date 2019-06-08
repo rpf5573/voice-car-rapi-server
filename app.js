@@ -34,6 +34,18 @@ app.post('/stop/all', function(req, res) {
 	//
 });
 
+app.get('/:motor_number/:direction/', function(req, res) {
+	var motor = req.params.motor_number;
+	var dir = req.params.direction;
+	
+	serial.write(motor + "," + dir, function(err) {});
+	//sockets.clients.forEach(function (conn) {
+	//      conn.send("3," + motor + "," + dir +  "," + speed);
+	//});
+
+	res.send("");
+});
+
 app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
