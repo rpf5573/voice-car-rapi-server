@@ -18,11 +18,13 @@ var server = http.createServer();
 
 // var messages = [];
 
-app.get('/test', function(req, res){
-	res.send("OK GET - TEST is OK!");
+app.get('/stop/all', function(req, res) {
+
 });
 
-app.post('/:motor_number/:direction/', function(req, res) {
+app.get('/:motor_number')
+
+app.post('/stop/all', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
 	
@@ -32,7 +34,7 @@ app.post('/:motor_number/:direction/', function(req, res) {
 	//
 });
 
-app.post('/:motor_number/:direction/:speed/', function(req, res) {
+app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
 	var speed = req.params.speed;
