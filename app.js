@@ -18,10 +18,6 @@ var server = http.createServer();
 
 // var messages = [];
 
-app.get('/test', function(req, res){
-	res.send("OK GET - TEST is OK!");
-});
-
 app.post('/:motor_number/:direction/', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
