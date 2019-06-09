@@ -23,6 +23,7 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 	var dir = req.params.direction;
 	var speed = req.params.speed;
 	console.log(speed);
+	res.send(speed);
 	// serial.write("motor-3,"+dir+","+speed, function(err) {});
 	// serial.write("motor-4,"+dir, function(err) {});
 });
