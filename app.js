@@ -24,12 +24,24 @@ app.get('/bottom/:direction', function(req, res) {
 	if (dir == 'stop') {
 		serial.write("motor-3,stop", function(err) {});
 		serial.write("motor-4,stop", function(err) {});
-	} 
-	// forward , backward
-	else {
-		serial.write("motor-3,"+dir+",100", function(err) {});
-		serial.write("motor-4,"+dir+",100", function(err) {});
 	}
+	if (dir == 'forward') {
+		serial.write("motor-3,forward,100", function(err) {});
+		serial.write("motor-4,forward,100", function(err) {});
+	}
+	if (dir == 'backward') {
+		serial.write("motor-3,backward,100", function(err) {});
+		serial.write("motor-4,backward,100", function(err) {});
+	}
+	if (dir == 'left') {
+		serial.write("motor-3,forward,100", function(err) {});
+		serial.write("motor-4,forward,50", function(err) {});
+	}
+	if (dir == 'right') {
+		serial.write("motor-3,forward,50", function(err) {});
+		serial.write("motor-4,forward,100", function(err) {});
+	}
+	return res.send("ok");
 });
 
 app.get('/arm-stop', function(req, res) {
