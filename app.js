@@ -18,14 +18,18 @@ var server = http.createServer();
 
 // var messages = [];
 
-app.get('/bottom/:direction/:speed', function(req, res) {
+app.get('/bottom/:direction', function(req, res) {
 	// stop / forward / backward
 	var dir = req.params.direction;
-	var speed = req.params.speed;
-	console.log(speed);
-	res.send('speed가 없어도 request받을 수 있다잉!');
-	// serial.write("motor-3,"+dir+","+speed, function(err) {});
-	// serial.write("motor-4,"+dir, function(err) {});
+	if (dir == 'stop') {
+		serial.write("motor-3,stop", function(err) {});
+		serial.write("motor-4,stop", function(err) {});
+	} 
+	// forward , backward
+	else {
+		serial.write("motor-3,"+dir+",100", function(err) {});
+		serial.write("motor-4,"+dir+",100", function(err) {});
+	}
 });
 
 app.get('/arm-stop', function(req, res) {
