@@ -23,7 +23,7 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 	var dir = req.params.direction;
 	var speed = req.params.speed;
 	console.log(speed);
-	res.send(speed);
+	res.send('speed가 없어도 request받을 수 있다잉!');
 	// serial.write("motor-3,"+dir+","+speed, function(err) {});
 	// serial.write("motor-4,"+dir, function(err) {});
 });
