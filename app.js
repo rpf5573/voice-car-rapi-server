@@ -25,9 +25,8 @@ app.get('/bottom/:direction', function(req, res) {
 	return res.send("ok");
 });
 
-app.get('/arm-stop', function(req, res) {
-	serial.write("motor-2,stop", function(err) {});
-	serial.write("motor-5,stop", function(err) {});
+app.get('/arm/stop', function(req, res) {
+	serial.write("arm,stop", function(err) {});
 });
 
 app.get('/:motor_number/:direction/', function(req, res) {
