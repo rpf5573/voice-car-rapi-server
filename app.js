@@ -18,16 +18,14 @@ var server = http.createServer();
 
 // var messages = [];
 
-app.get('/bottom/:direction', function(req, res) {
+app.get('/bottom/:direction/:speed', function(req, res) {
 	// stop / forward / backward
 	var dir = req.params.direction;
-	serial.write("motor-3,"+dir, function(err) {});
-	serial.write("motor-4,"+dir, function(err) {});
+	var speed = req.params.speed;
+	console.log(speed);
+	// serial.write("motor-3,"+dir+","+speed, function(err) {});
+	// serial.write("motor-4,"+dir, function(err) {});
 });
-
-app.get('', function(req, res) {
-
-})
 
 app.get('/arm-stop', function(req, res) {
 	serial.write("motor-2,stop", function(err) {});
