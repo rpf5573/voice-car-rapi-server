@@ -26,8 +26,8 @@ app.get('/bottom/:direction', function(req, res) {
 		serial.write("motor-4,stop", function(err) {});
 	}
 	if (dir == 'forward') {
-		serial.write("motor-3,forward,100", function(err) {});
 		serial.write("motor-4,forward,100", function(err) {});
+		serial.write("motor-3,forward,100", function(err) {});
 	}
 	if (dir == 'backward') {
 		serial.write("motor-3,backward,100", function(err) {});
