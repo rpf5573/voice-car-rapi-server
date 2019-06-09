@@ -21,26 +21,7 @@ var server = http.createServer();
 app.get('/bottom/:direction', function(req, res) {
 	// stop / forward / backward
 	var dir = req.params.direction;
-	if (dir == 'stop') {
-		serial.write("motor-3,stop", function(err) {});
-		serial.write("motor-4,stop", function(err) {});
-	}
-	if (dir == 'forward') {
-		serial.write("motor-4,forward,100", function(err) {});
-		serial.write("motor-3,forward,100", function(err) {});
-	}
-	if (dir == 'backward') {
-		serial.write("motor-3,backward,100", function(err) {});
-		serial.write("motor-4,backward,100", function(err) {});
-	}
-	if (dir == 'left') {
-		serial.write("motor-3,forward,100", function(err) {});
-		serial.write("motor-4,forward,50", function(err) {});
-	}
-	if (dir == 'right') {
-		serial.write("motor-3,forward,50", function(err) {});
-		serial.write("motor-4,forward,100", function(err) {});
-	}
+	serial.write("bottom,"+dir, function(err) {});
 	return res.send("ok");
 });
 
