@@ -55,6 +55,10 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	return res.sendStatus(201);
 });
 
+app.get('/', function(req, res) {
+	res.sendStatus('201');
+})
+
 server.on('request', app);
 server.listen(8080, function() {
   console.log("Server Start.");
