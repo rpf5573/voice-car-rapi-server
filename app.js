@@ -18,17 +18,31 @@ var server = http.createServer();
 
 // var messages = [];
 
-app.post('/:motor_number/:direction/', function(req, res) {
+app.get('/bottom/:direction', function(req, res) {
+	// stop / forward / backward
+	var dir = req.params.direction;
+	serial.write("bottom,"+dir, function(err) {});
+	return res.sendStatus(201);
+});
+
+app.get('/arm/stop', function(req, res) {
+	serial.write("arm,stop", function(err) {});
+	return res.sendStatus(201);
+});
+
+app.get('/:motor_number/:direction/', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
 	
 	serial.write(motor + "," + dir, function(err) {});
 	//sockets.clients.forEach(function (conn) {
-	//      conn.send("2,"+ motor + "," + dir);
-	//
+	//      conn.send("3," + motor + "," + dir +  "," + speed);
+	//});
+
+	return res.sendStatus(201);
 });
 
-app.post('/:motor_number/:direction/:speed/', function(req, res) {
+app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	var motor = req.params.motor_number;
 	var dir = req.params.direction;
 	var speed = req.params.speed;
@@ -38,8 +52,12 @@ app.post('/:motor_number/:direction/:speed/', function(req, res) {
 	//      conn.send("3," + motor + "," + dir +  "," + speed);
 	//});
 
-	res.send("");
+	return res.sendStatus(201);
 });
+
+app.get('/', function(req, res) {
+	res.sendStatus('201');
+})
 
 server.on('request', app);
 server.listen(8080, function() {
