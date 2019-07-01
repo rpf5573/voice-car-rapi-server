@@ -13,6 +13,6 @@
   },
   "scripts": {
     "start": "NODE_ENV=production pm2 start app.js --name voice_car",
-    "restart": "pm2 delete all && yarn start"
+    "restart": "pm2 delete all && npm start"
   }
 }
