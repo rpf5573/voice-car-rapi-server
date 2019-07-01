@@ -4,7 +4,8 @@ var express = require('express'),
 		serial_port = require('serialport'),
 		body_parser = require('body-parser');
 
-var serial = new serial_port('/dev/dev/ttyS0', {
+// ttyUSB0
+var serial = new serial_port('/dev/ttyS0', {
 	baudRate : 115200
 });
 
