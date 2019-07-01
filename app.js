@@ -5,7 +5,7 @@ var express = require('express'),
 		body_parser = require('body-parser');
 
 // ttyUSB0
-var serial = new serial_port('/dev/ttyS0', {
+var serial = new serial_port('/dev/ttyUSB0', {
 	baudRate : 115200
 });
 
