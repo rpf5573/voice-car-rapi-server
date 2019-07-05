@@ -10,27 +10,27 @@ var serial = new serial_port('/dev/ttyUSB0', {
 });
 
 // pigpio
-const Gpio = require('pigpio').Gpio;
-const LOW = 0;
-const HIGH = 1;
-const L298N = require('./motor/l298n.js');
+// const Gpio = require('pigpio').Gpio;
+// const LOW = 0;
+// const HIGH = 1;
+// const L298N = require('./motor/l298n.js');
 //bcm code
 // L298n 모터 드라이버와 라즈베리파이를 연결한 배선대로 핀넘버를 설정
-let l298n = new L298N(17,27,22,null,null,null);
+// let l298n = new L298N(17,27,22,null,null,null);
 
 var app = express();
 app.use(body_parser.json());
 
 var server = http.createServer();
 
-app.get('/smog/:onoff', function(req, res) {
-	var onoff = req.params.onoff;
-	if ( onoff == 'on' ) {
-		l298n.forward();
-	} else {
-		l298n.stop();
-	}
-});
+// app.get('/smog/:onoff', function(req, res) {
+// 	var onoff = req.params.onoff;
+// 	if ( onoff == 'on' ) {
+// 		l298n.forward();
+// 	} else {
+// 		l298n.stop();
+// 	}
+// });
 
 app.get('/bottom/:direction', function(req, res) {
 	// stop / forward / backward
