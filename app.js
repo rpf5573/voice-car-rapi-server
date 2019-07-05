@@ -27,7 +27,7 @@ app.get('/smog/:onoff', function(req, res) {
 	var onoff = req.params.onoff;
 	if ( onoff == 'on' ) {
 		l298n.forward();
-	} else ( onoff == 'off' ) {
+	} else {
 		l298n.stop();
 	}
 });
