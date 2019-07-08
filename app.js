@@ -24,7 +24,7 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 	// stop / forward / backward
 	const dir = req.params.direction;
 	const speed = req.params.speed;
-	console.log('speed', speed);
+	console.dir(speed);
 	serial.write("bottom,"+dir+","+speed, function(err) {});
 	return res.sendStatus(201);
 });
