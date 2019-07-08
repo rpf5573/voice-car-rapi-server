@@ -106,5 +106,8 @@ function stopForSafty(motor, dir) {
 		timerForStop = setTimeout(()=>{
 			serial.write(motor + ",stop");
 		}, stopTime);
+		
+		currentMovingMotorInfo.motor = motor;
+		currentMovingMotorInfo.direction = dir;
 	}
 }
