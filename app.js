@@ -86,13 +86,13 @@ function stopForSafty(motor) {
 	if ( motor == 'motor-2' || motor == 'motor-5' || motor == 'motor-6' ) {
 		let stopTime = 1500;
 		if ( motor == 'motor-2' ) {
-			// stopTime = 8000;
+			stopTime = 8000;
 		}
 		else if (motor == 'motor-5') {
-			// stopTime = 5000;
+			stopTime = 5000;
 		}
 		else if (motor == 'motor-6') {
-			// stopTime = 3000;
+			stopTime = 3000;
 		}
 		setTimeout(()=>{
 			serial.write(motor + ",stop");
