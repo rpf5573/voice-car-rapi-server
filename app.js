@@ -9,6 +9,12 @@ const serial = new serial_port('/dev/ttyUSB0', {
 	baudRate : 115200
 });
 
+let currentMovingMotorInfo = {
+	motor: 0,
+	direction: ''
+};
+let timerForStop = false;
+
 // pigpio
 // const Gpio = require('pigpio').Gpio;
 // const LOW = 0;
@@ -49,7 +55,7 @@ app.get('/:motor_number/:direction/', function(req, res) {
 	const dir = req.params.direction;
 	
 	serial.write(motor + "," + dir, function(err) {
-		if (!err && dir != 'stop') { stopForSafty(motor); }
+		if (!err && dir != 'stop') { stopForSafty(motor, dir); }
 	});
 	//sockets.clients.forEach(function (conn) {
 	//      conn.send("3," + motor + "," + dir +  "," + speed);
@@ -64,7 +70,7 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	const speed = req.params.speed;
 	
 	serial.write(motor + "," + dir + "," + speed, function(err) {
-		if (!err && dir != 'stop') { stopForSafty(motor); }
+		if (!err && dir != 'stop') { stopForSafty(motor, dir); }
 	});
 	//sockets.clients.forEach(function (conn) {
 	//      conn.send("3," + motor + "," + dir +  "," + speed);
@@ -82,8 +88,11 @@ server.listen(8080, function() {
   console.log("Server Start.");
 });
 
-function stopForSafty(motor) {
+function stopForSafty(motor, dir) {
 	if ( motor == 'motor-2' || motor == 'motor-5' || motor == 'motor-6' ) {
+		if ( motor == currentMovingMotorInfo.motor && dir != currentMovingMotorInfo.direction && timerForStop ) {
+			clearTimeout(timerForStop);
+		}
 		let stopTime = 1500;
 		if ( motor == 'motor-2' ) {
 			stopTime = 8000;
@@ -94,7 +103,7 @@ function stopForSafty(motor) {
 		else if (motor == 'motor-6') {
 			stopTime = 3000;
 		}
-		setTimeout(()=>{
+		timerForStop = setTimeout(()=>{
 			serial.write(motor + ",stop");
 		}, stopTime);
 	}
