@@ -20,10 +20,12 @@ app.use(body_parser.json());
 
 const server = http.createServer();
 
-app.get('/bottom/:direction', function(req, res) {
+app.get('/bottom/:direction/:speed', function(req, res) {
 	// stop / forward / backward
 	const dir = req.params.direction;
-	serial.write("bottom,"+dir, function(err) {});
+	const speed = req.params.speed;
+	console.log('speed', speed);
+	serial.write("bottom,"+dir+","+speed, function(err) {});
 	return res.sendStatus(201);
 });
 
