@@ -49,7 +49,7 @@ app.get('/:motor_number/:direction/', function(req, res) {
 	const dir = req.params.direction;
 	
 	serial.write(motor + "," + dir, function(err) {
-		if (!err) { stopForSafty(motor); }
+		if (!err && dir != 'stop') { stopForSafty(motor); }
 	});
 	//sockets.clients.forEach(function (conn) {
 	//      conn.send("3," + motor + "," + dir +  "," + speed);
@@ -64,7 +64,7 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	const speed = req.params.speed;
 	
 	serial.write(motor + "," + dir + "," + speed, function(err) {
-		if (!err) { stopForSafty(motor); }
+		if (!err && dir != 'stop') { stopForSafty(motor); }
 	});
 	//sockets.clients.forEach(function (conn) {
 	//      conn.send("3," + motor + "," + dir +  "," + speed);
