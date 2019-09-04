@@ -12,3 +12,15 @@
 module.export = {
 
 }
+
+var a = 1;
+let test = function(i) {
+  setTimeout(() => {
+    console.log(i);
+  }, 1000 * i);
+};
+
+for ( var z = 1; z <= 10; z++ ) {
+  a = a + 1;
+  test(a);
+}
