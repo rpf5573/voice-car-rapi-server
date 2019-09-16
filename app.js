@@ -64,12 +64,11 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 				return
 			}
 			var command = motor + "," + dir + "," + speed;
-			console.log(command);
 			setTimeout(() => {
 				serial.write(command, function(err) {
 					if (!err && dir != 'stop') { stopForSafty(motor, dir); }
 				});
-			}, 1000);
+			}, 10000);
 		});
 	}
 
