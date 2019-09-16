@@ -35,7 +35,9 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 				console.log(err);
 				return;
 			}
-			serial.write("bottom,"+dir+","+speed, function(err) {});
+			var command = "bottom,"+dir+","+speed;
+			console.log(command);
+			serial.write(command, function(err) {});
 		});
 	}
 
@@ -44,17 +46,6 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 
 app.get('/arm/stop', function(req, res) {
 	serial.write("arm,stop", function(err) {});
-	return res.sendStatus(201);
-});
-
-app.get('/:motor_number/:direction/', function(req, res) {
-	const motor = req.params.motor_number;
-	const dir = req.params.direction;
-
-	serial.write(motor + "," + dir, function(err) {
-		if (!err && dir != 'stop') { stopForSafty(motor, dir); }
-	});
-
 	return res.sendStatus(201);
 });
 
@@ -72,11 +63,23 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 				console.log(err);
 				return
 			}
-			serial.write(motor + "," + dir + "," + speed, function(err) {
+			var command = motor + "," + dir + "," + speed; 
+			serial.write(command, function(err) {
 				if (!err && dir != 'stop') { stopForSafty(motor, dir); }
 			});
 		});
 	}
+
+	return res.sendStatus(201);
+});
+
+app.get('/:motor_number/:direction/', function(req, res) {
+	const motor = req.params.motor_number;
+	const dir = req.params.direction;
+
+	serial.write(motor + "," + dir, function(err) {
+		if (!err && dir != 'stop') { stopForSafty(motor, dir); }
+	});
 
 	return res.sendStatus(201);
 });
