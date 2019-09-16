@@ -63,7 +63,8 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 				console.log(err);
 				return
 			}
-			var command = motor + "," + dir + "," + speed; 
+			var command = motor + "," + dir + "," + speed;
+			console.log(command);
 			serial.write(command, function(err) {
 				if (!err && dir != 'stop') { stopForSafty(motor, dir); }
 			});
