@@ -24,22 +24,11 @@ app.get('/bottom/:direction/:speed', function(req, res) {
 	// stop / forward / backward
 	const dir = req.params.direction;
 	const speed = req.params.speed;
-	console.dir(speed);
 
-	if ( dir == 'stop' ) {
-		serial.write("bottom,stop", function(err) {});
-	} else {
-		// 먼저 멈추고, 그 다음에 움직이즈아~
-		serial.write("bottom,stop", function(err) {
-			if ( err ) {
-				console.log(err);
-				return;
-			}
-			var command = "bottom,"+dir+","+speed;
-			console.log(command);
-			serial.write(command, function(err) {});
-		});
-	}
+	var command = "bottom,"+dir+","+speed;
+	serial.write(command, function(err) {
+		if ( err ) { console.error(err); }
+	});
 
 	return res.sendStatus(201);
 });
@@ -54,23 +43,10 @@ app.get('/:motor_number/:direction/:speed/', function(req, res) {
 	const dir = req.params.direction;
 	const speed = req.params.speed;
 
-	if ( dir == "stop" ) {
-		serial.write(motor + ",stop", function(err){
-		});
-	} else {
-		serial.write(motor + ",stop", function(err){
-			if ( err ) {
-				console.log(err);
-				return
-			}
-			var command = motor + "," + dir + "," + speed;
-			setTimeout(() => {
-				serial.write(command, function(err) {
-					if (!err && dir != 'stop') { stopForSafty(motor, dir); }
-				});
-			}, 500);
-		});
-	}
+	var command = motor + "," + dir + "," + speed;
+	serial.write(command, function(err) {
+		if (!err && dir != 'stop') { stopForSafty(motor, dir); }
+	});
 
 	return res.sendStatus(201);
 });
