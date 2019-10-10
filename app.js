@@ -47,9 +47,10 @@ var globalTimer = {
   45: false,
 }
 
-app.get('/:code', (req, res) => {
+app.get('/:code/:speed', (req, res) => {
 	const code = req.params.code;
-	serial.write(code, function(err) {
+	const speed = req.params.speed;
+	serial.write(`${code}${speed}`, function(err) {
 		if ( err ) {
 			console.error(err); 
 		} else {
