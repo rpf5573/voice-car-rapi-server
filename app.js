@@ -60,7 +60,7 @@ app.get('/:code/:speed', (req, res) => {
 			let isStopCode = (code%10 == 0) ? true : false;
 			let partCode = Math.floor(code/10);
 			if ( ! isStopCode && (partCode == 1 || partCode == 2) ) {
-				stopForSafty(code);
+				// stopForSafty(code);
 			}
 		}
 	});
