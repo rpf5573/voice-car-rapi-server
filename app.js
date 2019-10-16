@@ -77,7 +77,7 @@ function stopForSafty(code) {
 		let stopCode = Math.floor(code/10) * 10;
 		console.log('stopForSafty', stopCode);
 		try {
-			serial.write(stopCode, (err) => {
+			serial.write(stopCode+'', (err) => {
 				console.log('err', err);
 				globalTimer[code] = false;
 			});
