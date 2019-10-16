@@ -76,10 +76,15 @@ function stopForSafty(code) {
 	globalTimer[code] = setTimeout(() => {
 		let stopCode = Math.floor(code/10) * 10;
 		console.log('stopForSafty', stopCode);
-		serial.write(stopCode, (err) => {
-			console.log('err', err);
+		try {
+			serial.write(stopCode, (err) => {
+				console.log('err', err);
+				globalTimer[code] = false;
+			});
+		} catch(e) {
+			console.log(e);
 			globalTimer[code] = false;
-		});
+		}
 	}, 6000);
 }
 
