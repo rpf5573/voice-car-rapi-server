@@ -60,7 +60,7 @@ app.get('/:code/:speed', (req, res) => {
 			let isStopCode = (code%10 == 0) ? true : false;
 			let partCode = Math.floor(code/10);
 			if ( ! isStopCode && (partCode == 1 || partCode == 2) ) {
-				// stopForSafty(code);
+				stopForSafty(code);
 			}
 		}
 	});
@@ -75,8 +75,11 @@ function stopForSafty(code) {
 
 	globalTimer[code] = setTimeout(() => {
 		let stopCode = Math.floor(code/10) * 10;
-		serial.write(stopCode);
-		globalTimer[code] = false;
+		console.log('stopForSafty', stopCode);
+		serial.write(stopCode, (err) => {
+			console.log('err', err);
+			globalTimer[code] = false;
+		});
 	}, 6000);
 }
 
