@@ -49,9 +49,12 @@ var globalTimer = {
 
 app.get('/:code/:speed', (req, res) => {
 	const code = req.params.code;
-	const speed = req.params.speed;
+	let speed = req.params.speed;
+	if ( ! code || ! speed ) {
+		return res.tatus(201).json({error: "명령어 와 속도값이 없습니다"});
+	}
+	speed = modifySpeed(code, speed);
 	const command = `${code}${speed}`;
-	console.log("command", command);
 	serial.write(command, function(err) {
 		if ( err ) {
 			console.error(err); 
@@ -86,6 +89,20 @@ function stopForSafty(code) {
 			globalTimer[code] = false;
 		}
 	}, 6000);
+}
+
+function modifySpeed(code, speed) {
+	if ( speed == 100 ) {
+		speed = 99;
+	}
+	let partCode = Math.floor(code/10);
+	// 손이나 팔쪽에는 모터속도의 100%를 내면 고장난다!
+	if ( partCode == 1 || partCode == 2 || partCode == 3 ) {
+		if ( speed > 80 ) {
+			speed = 80; // 최대치를 80으로 정한다
+		}
+	}
+	return Math.floor(speed);
 }
 
 server.on('request', app);
