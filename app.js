@@ -98,9 +98,7 @@ function modifySpeed(code, speed) {
 	let partCode = Math.floor(code/10);
 	// 손이나 팔쪽에는 모터속도의 100%를 내면 고장난다!
 	if ( partCode == 1 || partCode == 2 || partCode == 3 ) {
-		if ( speed > 80 ) {
-			speed = 80; // 최대치를 80으로 정한다
-		}
+		speed = speed * 0.7;
 	}
 	return Math.floor(speed);
 }
