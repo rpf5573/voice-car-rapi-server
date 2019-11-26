@@ -76,9 +76,10 @@ function stopForSafty(code) {
 		clearTimeout(globalTimer[code]);
 	}
 
+	// 손펴 명령어만 2초후에 꺼지도록!
+	let delay = code == 11 ? 2000 : 6000;
 	globalTimer[code] = setTimeout(() => {
 		let stopCode = `${Math.floor(code/10) * 10}00`;
-		console.log('stopForSafty', stopCode);
 		try {
 			serial.write(stopCode, (err) => {
 				console.log('err', err);
@@ -88,7 +89,7 @@ function stopForSafty(code) {
 			console.log(e);
 			globalTimer[code] = false;
 		}
-	}, 6000);
+	}, delay);
 }
 
 function modifySpeed(code, speed) {
