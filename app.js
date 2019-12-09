@@ -62,13 +62,13 @@ app.get('/:code/:speed', (req, res) => {
 			// stop 명령은 10, 20, 30, 40 ... 이런식이다.
 			let isStopCode = (code%10 == 0) ? true : false;
 			let partCode = Math.floor(code/10);
-			if ( ! isStopCode && (partCode == 1 || partCode == 2) ) {
+			if ( ! isStopCode && partCode != 4 ) {
 				stopForSafty(code);
 			}
 		}
 	});
 	return res.sendStatus(201);
-});
+}); 
 
 function stopForSafty(code) {
 	// 이렇게 멈추는게 맞기는 한데,,, 만약에 3초안에 같은 모터 동작 명령이 들어오면,,,갑자기 멈출 수는 없잖아!!!
@@ -77,7 +77,7 @@ function stopForSafty(code) {
 	}
 
 	// 손펴 명령어만 2초후에 꺼지도록!
-	let delay = code == 11 ? 2000 : 6000;
+	let delay = code == 11 ? 2000 : 5000;
 	globalTimer[code] = setTimeout(() => {
 		let stopCode = `${Math.floor(code/10) * 10}00`;
 		try {
